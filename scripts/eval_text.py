@@ -17,8 +17,8 @@ def evaluate():
     if os.environ.get("OFFLINE_DEBUG") == "1":
         print("Offline mode enabled. Skipping DagsHub and MLflow.")
         models_to_evaluate = [
-            {"model": "xgb_clf_model.pkl", "vectorizer": "xgb_tfidf_vectorizer.pkl", "name": "detectify-text-en-xgboost"},
-            {"model": "log_reg_model.pkl", "vectorizer": "tfidf_vectorizer.pkl", "name": "detectify-text-en-logreg"}
+            {"model": "xgb_pipeline.pkl", "name": "detectify-text-en-xgboost"},
+            {"model": "log_reg_pipeline.pkl", "name": "detectify-text-en-logreg"}
         ]
         for m_info in models_to_evaluate:
             run_eval_logic(m_info)
@@ -31,8 +31,8 @@ def evaluate():
     
     # We'll evaluate both if possible, or just the main one
     models_to_evaluate = [
-        {"model": "xgb_clf_model.pkl", "vectorizer": "xgb_tfidf_vectorizer.pkl", "name": "detectify-text-en-xgboost"},
-        {"model": "log_reg_model.pkl", "vectorizer": "tfidf_vectorizer.pkl", "name": "detectify-text-en-logreg"}
+        {"model": "xgb_pipeline.pkl", "name": "detectify-text-en-xgboost"},
+        {"model": "log_reg_pipeline.pkl", "name": "detectify-text-en-logreg"}
     ]
 
     for m_info in models_to_evaluate:
@@ -45,14 +45,13 @@ def evaluate():
 
 def run_eval_logic(m_info):
     m_path = os.path.join(MODEL_DIR, m_info["model"])
-    v_path = os.path.join(MODEL_DIR, m_info["vectorizer"])
 
-    if not os.path.exists(m_path) or not os.path.exists(v_path):
-        print(f"Skipping {m_info['name']}, files not found.")
+    if not os.path.exists(m_path):
+        print(f"Skipping {m_info['name']}, file not found.")
         return
 
-    model = joblib.load(m_path)
-    vectorizer = joblib.load(v_path)
+    # Load unified pipeline
+    pipeline = joblib.load(m_path)
 
     if not os.path.exists(DATA_PATH):
         print(f"Dataset {DATA_PATH} not found.")
@@ -70,8 +69,8 @@ def run_eval_logic(m_info):
 
     for text in X:
         start_time = time.time()
-        vec_text = vectorizer.transform([text])
-        pred = model.predict(vec_text)[0]
+        # Direct prediction with pipeline
+        pred = pipeline.predict([text])[0]
         latency = (time.time() - start_time) * 1000
         latencies.append(latency)
         all_preds.append(pred)
@@ -111,10 +110,10 @@ def run_eval_logic(m_info):
         
         # Model Logging & Registration
         if os.environ.get("OFFLINE_DEBUG") != "1":
-            print(f"Registering {m_info['name']} to DagsHub Model Registry...")
-            # Both models in this project use sklearn-compatible interfaces
+            print(f"Registering {m_info['name']} (Pipeline) to DagsHub Model Registry...")
+            # Log the whole pipeline object
             mlflow.sklearn.log_model(
-                sk_model=model, 
+                sk_model=pipeline, 
                 artifact_path="model",
                 registered_model_name=m_info["name"]
             )
