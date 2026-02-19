@@ -39,7 +39,7 @@ LEARNING_RATE = 1e-4
 DATA_PATH = "notebook/text_detection_indo/datasets/combined_ai_human_indonesia.csv"
 MODEL_DIR = "notebook/text_detection_indo/saved_models"
 DOC2VEC_PATH = os.path.join(MODEL_DIR, "doc2Vec.d2v")
-BILSTM_PATH = os.path.join(MODEL_DIR, "bi_lstm.h5")
+BILSTM_PATH = os.path.join(MODEL_DIR, "bi_lstm.keras")
 
 # Ensure model directory exists
 os.makedirs(MODEL_DIR, exist_ok=True)
