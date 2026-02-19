@@ -57,7 +57,7 @@ def create_and_log_pipeline():
         mlflow.sklearn.log_model(
             sk_model=pipeline,
             artifact_path="model",
-            registered_model_name="detectify-text-id-bilstm"
+            registered_model_name="Indo_Text_Pipeline_BILSTM"
         )
         
         # Log individual files as artifacts for redundancy
