@@ -44,7 +44,7 @@ MODEL_CONFIGS = [
         "old_name": "Audio_Deepfake_Detection_Model",
         "new_name": "detectify-deepfake-en-audio-cnn",
         "domain": "audio",
-        "model_path": "notebook/audio_detection/saved_models/tuning_2_2.pth",
+        "model_path": "notebook/audio_detection/saved_models/tuning_2.pth",
         "test_data": "notebook/audio_detection/datasets/libri+gen/test_list.txt",
         "architecture": "SimpleAudioCNN",
     },
