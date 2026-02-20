@@ -5,7 +5,6 @@ import sys
 def run_script(script_path):
     print(f"--- Running {script_path} ---")
     try:
-        # Use sys.executable to ensure we use the same environment
         result = subprocess.run([sys.executable, script_path], capture_output=True, text=True, check=True)
         print(result.stdout)
         if result.stderr:
@@ -18,9 +17,7 @@ def run_script(script_path):
 
 def main():
     scripts = [
-        "scripts/eval_audio.py",
-        "scripts/eval_image.py",
-        "scripts/eval_text.py"
+        "scripts/rename_and_evaluate_models.py",
     ]
 
     for script in scripts:

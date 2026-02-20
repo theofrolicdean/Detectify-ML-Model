@@ -1,0 +1,244 @@
+{
+  "version": "1.0.0",
+  "evaluated_at": "2026-02-20T09:11:23.682795",
+  "device": "cpu",
+  "models": [
+    {
+      "model_name": "detectify-deepfake-en-audio-cnn",
+      "version": "1.0.0",
+      "status": "SKIPPED",
+      "evaluated_at": "2026-02-20T09:11:23.610277"
+    },
+    {
+      "model_name": "detectify-deepfake-en-image-efficientnet",
+      "version": "1.0.0",
+      "status": "OK",
+      "evaluated_at": "2026-02-20T09:11:23.610824",
+      "accuracy": 0.98,
+      "precision": 1.0,
+      "recall": 0.95,
+      "f1_score": 0.9743589743589743,
+      "p50_latency_ms": 1467.7447080612183,
+      "p90_latency_ms": 2147.28479385376,
+      "p95_latency_ms": 2318.9286708831783,
+      "architecture": "EfficientNetV2",
+      "old_name": "Image_Deepfake_Detection_Model",
+      "model_path": "notebook/image_detection/saved_models/final_model.pth",
+      "test_data": "notebook/image_detection/processed_dataset",
+      "eval_method": {
+        "data_source": "notebook/image_detection/processed_dataset (real/ and fake/ subdirectories)",
+        "sample_size": "100 random samples from processed dataset",
+        "preprocessing": "Resize(224×224), ToTensor, Normalize(ImageNet mean/std)",
+        "model_type": "EfficientNetV2-L (tf_efficientnetv2_l) → FC(512→1, sigmoid)",
+        "prediction": "sigmoid(output) > 0.5 → binary class",
+        "metrics": {
+          "accuracy": "sklearn.metrics.accuracy_score(y_true, y_pred)",
+          "precision": "sklearn.metrics.precision_score(y_true, y_pred, zero_division=0)",
+          "recall": "sklearn.metrics.recall_score(y_true, y_pred, zero_division=0)",
+          "f1_score": "sklearn.metrics.f1_score(y_true, y_pred, zero_division=0)",
+          "p50_latency_ms": "numpy.percentile(per_sample_latencies, 50) — inference only (preprocessing excluded)",
+          "p90_latency_ms": "numpy.percentile(per_sample_latencies, 90)",
+          "p95_latency_ms": "numpy.percentile(per_sample_latencies, 95)"
+        }
+      }
+    },
+    {
+      "model_name": "detectify-deepfake-en-text-xgboost",
+      "version": "1.0.0",
+      "status": "OK",
+      "evaluated_at": "2026-02-20T09:11:23.610824",
+      "accuracy": 0.995,
+      "precision": 1.0,
+      "recall": 0.9876543209876543,
+      "f1_score": 0.9937888198757764,
+      "p50_latency_ms": 5.831122398376465,
+      "p90_latency_ms": 10.000109672546385,
+      "p95_latency_ms": 13.568234443664547,
+      "architecture": "XGBoost",
+      "old_name": "detectify-text-en-xgboost",
+      "model_path": "notebook/text_detection/saved_models/xgb_pipeline.pkl",
+      "test_data": "notebook/text_detection/datasets/processed_combined_ai_human.csv",
+      "eval_method": {
+        "data_source": "notebook/text_detection/datasets/processed_combined_ai_human.csv",
+        "sample_size": "200 random samples (stratified by random_state=42)",
+        "preprocessing": "TF-IDF vectorization (built into sklearn Pipeline)",
+        "model_type": "XGBoost / Logistic Regression sklearn Pipeline",
+        "prediction": "pipeline.predict([text]) — direct class output",
+        "metrics": {
+          "accuracy": "sklearn.metrics.accuracy_score(y_true, y_pred)",
+          "precision": "sklearn.metrics.precision_score(y_true, y_pred, zero_division=0)",
+          "recall": "sklearn.metrics.recall_score(y_true, y_pred, zero_division=0)",
+          "f1_score": "sklearn.metrics.f1_score(y_true, y_pred, zero_division=0)",
+          "p50_latency_ms": "numpy.percentile(per_sample_latencies, 50) — includes vectorization + prediction",
+          "p90_latency_ms": "numpy.percentile(per_sample_latencies, 90)",
+          "p95_latency_ms": "numpy.percentile(per_sample_latencies, 95)"
+        }
+      }
+    },
+    {
+      "model_name": "detectify-deepfake-en-text-logreg",
+      "version": "1.0.0",
+      "status": "OK",
+      "evaluated_at": "2026-02-20T09:11:23.610824",
+      "accuracy": 0.995,
+      "precision": 1.0,
+      "recall": 0.9876543209876543,
+      "f1_score": 0.9937888198757764,
+      "p50_latency_ms": 0.0,
+      "p90_latency_ms": 1.263809204101562,
+      "p95_latency_ms": 1.5130281448364258,
+      "architecture": "LogisticRegression",
+      "old_name": "detectify-text-en-logreg",
+      "model_path": "notebook/text_detection/saved_models/log_reg_pipeline.pkl",
+      "test_data": "notebook/text_detection/datasets/processed_combined_ai_human.csv",
+      "eval_method": {
+        "data_source": "notebook/text_detection/datasets/processed_combined_ai_human.csv",
+        "sample_size": "200 random samples (stratified by random_state=42)",
+        "preprocessing": "TF-IDF vectorization (built into sklearn Pipeline)",
+        "model_type": "XGBoost / Logistic Regression sklearn Pipeline",
+        "prediction": "pipeline.predict([text]) — direct class output",
+        "metrics": {
+          "accuracy": "sklearn.metrics.accuracy_score(y_true, y_pred)",
+          "precision": "sklearn.metrics.precision_score(y_true, y_pred, zero_division=0)",
+          "recall": "sklearn.metrics.recall_score(y_true, y_pred, zero_division=0)",
+          "f1_score": "sklearn.metrics.f1_score(y_true, y_pred, zero_division=0)",
+          "p50_latency_ms": "numpy.percentile(per_sample_latencies, 50) — includes vectorization + prediction",
+          "p90_latency_ms": "numpy.percentile(per_sample_latencies, 90)",
+          "p95_latency_ms": "numpy.percentile(per_sample_latencies, 95)"
+        }
+      }
+    },
+    {
+      "model_name": "detectify-deepfake-id-text-bilstm",
+      "version": "1.0.0",
+      "status": "OK",
+      "evaluated_at": "2026-02-20T09:11:23.610824",
+      "accuracy": 0.855,
+      "precision": 0.801980198019802,
+      "recall": 0.9,
+      "f1_score": 0.8481675392670157,
+      "p50_latency_ms": 391.69323444366455,
+      "p90_latency_ms": 546.7101573944093,
+      "p95_latency_ms": 611.3822102546692,
+      "architecture": "BiLSTM",
+      "old_name": "Indo_Text_BiLSTM",
+      "model_path": "notebook/text_detection_indo/saved_models/bi_lstm.pth",
+      "test_data": "notebook/text_detection_indo/datasets/combined_ai_human_indonesia.csv",
+      "eval_method": {
+        "data_source": "notebook/text_detection_indo/datasets/combined_ai_human_indonesia.csv",
+        "sample_size": "200 samples from 20% validation split (stratified, random_state=42)",
+        "preprocessing": "Regex cleaning → lowercasing → Doc2Vec(infer_vector, epochs=20)",
+        "model_type": "PyTorch RNN (BiLSTM/BiGRU/GRU/LSTM, hidden=50, layers=4) → FC→sigmoid",
+        "prediction": "sigmoid(output) > 0.5 → binary class",
+        "metrics": {
+          "accuracy": "sklearn.metrics.accuracy_score(y_true, y_pred)",
+          "precision": "sklearn.metrics.precision_score(y_true, y_pred, zero_division=0)",
+          "recall": "sklearn.metrics.recall_score(y_true, y_pred, zero_division=0)",
+          "f1_score": "sklearn.metrics.f1_score(y_true, y_pred, zero_division=0)",
+          "p50_latency_ms": "numpy.percentile(per_sample_latencies, 50) — 50 samples, includes preprocessing + vectorization + inference",
+          "p90_latency_ms": "numpy.percentile(per_sample_latencies, 90)",
+          "p95_latency_ms": "numpy.percentile(per_sample_latencies, 95)"
+        }
+      }
+    },
+    {
+      "model_name": "detectify-deepfake-id-text-bigru",
+      "version": "1.0.0",
+      "status": "OK",
+      "evaluated_at": "2026-02-20T09:11:23.610824",
+      "accuracy": 0.74,
+      "precision": 0.6507936507936508,
+      "recall": 0.9111111111111111,
+      "f1_score": 0.7592592592592593,
+      "p50_latency_ms": 343.10615062713623,
+      "p90_latency_ms": 523.401927947998,
+      "p95_latency_ms": 599.8789072036741,
+      "architecture": "BiGRU",
+      "old_name": "Indo_Text_BiGRU",
+      "model_path": "notebook/text_detection_indo/saved_models/bi_gru.pth",
+      "test_data": "notebook/text_detection_indo/datasets/combined_ai_human_indonesia.csv",
+      "eval_method": {
+        "data_source": "notebook/text_detection_indo/datasets/combined_ai_human_indonesia.csv",
+        "sample_size": "200 samples from 20% validation split (stratified, random_state=42)",
+        "preprocessing": "Regex cleaning → lowercasing → Doc2Vec(infer_vector, epochs=20)",
+        "model_type": "PyTorch RNN (BiLSTM/BiGRU/GRU/LSTM, hidden=50, layers=4) → FC→sigmoid",
+        "prediction": "sigmoid(output) > 0.5 → binary class",
+        "metrics": {
+          "accuracy": "sklearn.metrics.accuracy_score(y_true, y_pred)",
+          "precision": "sklearn.metrics.precision_score(y_true, y_pred, zero_division=0)",
+          "recall": "sklearn.metrics.recall_score(y_true, y_pred, zero_division=0)",
+          "f1_score": "sklearn.metrics.f1_score(y_true, y_pred, zero_division=0)",
+          "p50_latency_ms": "numpy.percentile(per_sample_latencies, 50) — 50 samples, includes preprocessing + vectorization + inference",
+          "p90_latency_ms": "numpy.percentile(per_sample_latencies, 90)",
+          "p95_latency_ms": "numpy.percentile(per_sample_latencies, 95)"
+        }
+      }
+    },
+    {
+      "model_name": "detectify-deepfake-id-text-gru",
+      "version": "1.0.0",
+      "status": "OK",
+      "evaluated_at": "2026-02-20T09:11:23.610824",
+      "accuracy": 0.78,
+      "precision": 0.6916666666666667,
+      "recall": 0.9222222222222223,
+      "f1_score": 0.7904761904761904,
+      "p50_latency_ms": 142.76134967803955,
+      "p90_latency_ms": 236.81249618530273,
+      "p95_latency_ms": 277.51989364624023,
+      "architecture": "GRU",
+      "old_name": "Indo_Text_GRU",
+      "model_path": "notebook/text_detection_indo/saved_models/gru.pth",
+      "test_data": "notebook/text_detection_indo/datasets/combined_ai_human_indonesia.csv",
+      "eval_method": {
+        "data_source": "notebook/text_detection_indo/datasets/combined_ai_human_indonesia.csv",
+        "sample_size": "200 samples from 20% validation split (stratified, random_state=42)",
+        "preprocessing": "Regex cleaning → lowercasing → Doc2Vec(infer_vector, epochs=20)",
+        "model_type": "PyTorch RNN (BiLSTM/BiGRU/GRU/LSTM, hidden=50, layers=4) → FC→sigmoid",
+        "prediction": "sigmoid(output) > 0.5 → binary class",
+        "metrics": {
+          "accuracy": "sklearn.metrics.accuracy_score(y_true, y_pred)",
+          "precision": "sklearn.metrics.precision_score(y_true, y_pred, zero_division=0)",
+          "recall": "sklearn.metrics.recall_score(y_true, y_pred, zero_division=0)",
+          "f1_score": "sklearn.metrics.f1_score(y_true, y_pred, zero_division=0)",
+          "p50_latency_ms": "numpy.percentile(per_sample_latencies, 50) — 50 samples, includes preprocessing + vectorization + inference",
+          "p90_latency_ms": "numpy.percentile(per_sample_latencies, 90)",
+          "p95_latency_ms": "numpy.percentile(per_sample_latencies, 95)"
+        }
+      }
+    },
+    {
+      "model_name": "detectify-deepfake-id-text-lstm",
+      "version": "1.0.0",
+      "status": "OK",
+      "evaluated_at": "2026-02-20T09:11:23.610824",
+      "accuracy": 0.74,
+      "precision": 0.6461538461538462,
+      "recall": 0.9333333333333333,
+      "f1_score": 0.7636363636363637,
+      "p50_latency_ms": 262.0964050292969,
+      "p90_latency_ms": 418.4763431549073,
+      "p95_latency_ms": 531.2406063079834,
+      "architecture": "LSTM",
+      "old_name": "Indo_Text_LSTM",
+      "model_path": "notebook/text_detection_indo/saved_models/lstm.pth",
+      "test_data": "notebook/text_detection_indo/datasets/combined_ai_human_indonesia.csv",
+      "eval_method": {
+        "data_source": "notebook/text_detection_indo/datasets/combined_ai_human_indonesia.csv",
+        "sample_size": "200 samples from 20% validation split (stratified, random_state=42)",
+        "preprocessing": "Regex cleaning → lowercasing → Doc2Vec(infer_vector, epochs=20)",
+        "model_type": "PyTorch RNN (BiLSTM/BiGRU/GRU/LSTM, hidden=50, layers=4) → FC→sigmoid",
+        "prediction": "sigmoid(output) > 0.5 → binary class",
+        "metrics": {
+          "accuracy": "sklearn.metrics.accuracy_score(y_true, y_pred)",
+          "precision": "sklearn.metrics.precision_score(y_true, y_pred, zero_division=0)",
+          "recall": "sklearn.metrics.recall_score(y_true, y_pred, zero_division=0)",
+          "f1_score": "sklearn.metrics.f1_score(y_true, y_pred, zero_division=0)",
+          "p50_latency_ms": "numpy.percentile(per_sample_latencies, 50) — 50 samples, includes preprocessing + vectorization + inference",
+          "p90_latency_ms": "numpy.percentile(per_sample_latencies, 90)",
+          "p95_latency_ms": "numpy.percentile(per_sample_latencies, 95)"
+        }
+      }
+    }
+  ]
+}
