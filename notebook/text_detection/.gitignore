@@ -1,1 +1,8 @@
-/saved_models
+saved_models/
+*.csv
+*.pth
+*.pkl
+*.d2v
+*.npy
+*.h5
+*.fig
