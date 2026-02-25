@@ -36,8 +36,7 @@ class EfficientNetV2(nn.Module):
 
 
 def train_model(model, train_loader, valid_loader, num_epochs=10, 
-                device="cpu", resume_checkpoint=None
-):
+                device="cpu", resume_checkpoint=None):
     criterion = nn.BCEWithLogitsLoss()
     optimizer = optim.Adam(model.parameters(), lr=1e-4)
     scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)

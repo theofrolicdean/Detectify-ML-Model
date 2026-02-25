@@ -6,3 +6,4 @@ saved_models/
 *.npy
 *.h5
 *.fig
+*.pt
